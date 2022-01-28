@@ -1,0 +1,24 @@
+  <h1 class="text-4xl mb-12">YOUR DISCUSSION</h1>
+  <h2>Welcome, <span id="username"> {{user}} </span> </h2>
+  <div class="flex flex-col sm:flex-row m-3">
+    <span
+      class="flex-2 text-left sm:text-right mr-6"
+      id="status"
+    >Connecting...</span>
+    <input
+      class="bg-gray-300 flex-1 border-2 border-black-500 rounded-md focus:outline-none shadow-lg"
+      type="text"
+      id="input"
+      disabled="disabled"
+      placeholder=""
+    />
+  </div>
+  <div
+    class="flex flex-col overflow-y-auto bg-gray-300 p-6 border-2 border-black border border-solid rounded-lg min-h-0"
+    id="content"
+  ></div>
+<script
+  src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"
+></script>
+<script src="/notif.js"></script>
+<script src="/wschat.js"></script>

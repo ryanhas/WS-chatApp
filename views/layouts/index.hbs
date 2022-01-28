@@ -1,0 +1,90 @@
+<html>
+  <head>
+    <title>WebSockets - Simple chat</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="stylesheet" href="/style.css" />
+    <script>
+      if ("serviceWorker" in navigator) { // register service worker
+      navigator.serviceWorker.register("sw.js"); }
+    </script>
+    <script
+      data-ad-client="ca-pub-2605748492339093"
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    ></script>
+  </head>
+  <body class="bg-gray-700">
+    <nav class="flex items-center justify-between flex-wrap bg-red-500 p-6">
+      <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-xl tracking-tight">Connect. Anywhere</span>
+      </div>
+      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+          {{#if user}}
+            <a
+              href="#"
+              class="block mt-6 mr-6 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+            >
+              Contacts
+            </a>
+            <a
+              href="#"
+              class="block mt-6 mr-6 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+            >
+              Chats
+            </a>
+          {{else}}
+            <a
+              href="/users/login"
+              class="block mt-6 mr-6 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+            >
+              Login
+            </a>
+            <a
+              href="/users/register"
+              class="block mt-6 mr-6 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
+            >
+              Register
+            </a>
+          {{/if}}
+        </div>
+        {{#if user}}
+          <div>
+            <a
+              href="/users/logout"
+              class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black hover:bg-white mt-4 lg:mt-0"
+            >Logout</a>
+          </div>
+        {{/if}}
+      </div>
+    </nav>
+
+    <div
+      class="container flex flex-col max-h-screen mx-auto max-w-screen-sm sm:max-w-screen-md m-14 px-20"
+    >
+      {{#if success_msg}}
+        <div class="border-2 rounded bg-green-100 border-green-600 p-2 my-2">
+          {{success_msg}}
+        </div>
+      {{/if}}
+      {{#if error_msg}}
+        <div class="border-2 rounded bg-red-200 border-red-600 p-2 my-2">
+          {{error_msg}}
+        </div>
+      {{/if}}
+      {{#if error}}
+        <div class="border-2 rounded bg-red-200 border-red-600 p-2 my-2">
+          {{error}}
+        </div>
+      {{/if}}
+      {{{body}}}
+    </div>
+  </body>
+</html>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"
+></script>
