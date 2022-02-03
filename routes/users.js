@@ -10,10 +10,12 @@ const nodemailer = require("nodemailer");
 
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
-  service: "AOL",
+  host: "smtp-rhas.alwaysdata.net",
+  port: 465,
+  secure: true, // upgrade later with STARTTLS
   auth: {
-    user: process.env.AOL_USER,
-    pass: process.env.AOL_PASS,
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PWD,
   },
 });
 
@@ -81,13 +83,16 @@ router.post("/register", (req, res) => {
                   { _id: user._id },
                   process.env.EMAIL_SECRET,
                   { expiresIn: "1d" }, async (err, emailToken) => {
-                    const url = `http://localhost:1337/users/confirm/${emailToken}`;
+                    const url = `${process.env.APP_URL}/users/confirm/${emailToken}`;
 
                     try {
                       await transporter.sendMail({
                         to: email,
                         subject: "Confirm Email",
-                        html: `Please click this email to confirm your email: <a href="${url}">${url}</a>`,
+                        html: `<h2>Thanks for joining us!</h2>
+                               <p>Please click this email to confirm your email: <a href="${url}">${url}</a></p>
+                               <p>Thank you</>
+                               <p>The IT team</p>`,
                       });
                       req.flash(
                         "success_msg",
@@ -137,16 +142,24 @@ router.get("/logout", (req, res) => {
 // Confirm new user
 router.get("/confirm/:token", (req, res) => {
   try {
-    const id = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
-    User.findById(id.user, (err, user) => {
-      console.log("User found");
-      user.confirmed = true;
-      user.save();
+    const user = jwt.verify(req.params.token, process.env.EMAIL_SECRET);
+    console.log(JSON.stringify(user));
+    User.findByIdAndUpdate({_id: user._id}, {confirmed: "true"}, (err, user) => {
+      if (user) {
+        console.log(`user update successful`);
+        req.flash("success_msg", "Email address successfully confirmed");
+        res.redirect("/");
+      } else {
+        req.flash("error_msg", "User confirmation failed");
+        res.redirect("/");
+      }
+      
     });
-    res.redirect("/");
   } catch (e) {
+    console.log(e);
     res.send("error");
   }
+  
 });
 
 module.exports = router;
