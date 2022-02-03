@@ -61,7 +61,8 @@ $(function () {
       // first response from the server with user's color
       if (json.type === "color") {
         myColor = json.data;
-        status.text(myName + ": ").css("color", myColor);
+        //status.text(myName + ": ").css("color", myColor);
+        status.text(" ");
         input.removeAttr("disabled").focus();
         input.attr("placeholder", "Type message...");
         // from now user can start sending messages
@@ -88,11 +89,8 @@ $(function () {
           new Date(json.data.time)
         );
         // Notify user when incoming message
-        var currentAuthor = document
-        .getElementById("status")
-        .textContent.slice(0, -2);
         // only show notif when others send a message
-        if (currentAuthor !== json.data.author) {
+        if (username !== json.data.author) {
           showNotification(json.data.author, json.data.text);
         }
 

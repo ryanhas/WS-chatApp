@@ -6,9 +6,9 @@ const { ensureAuthenticated, forwardAuthenticated } = require('../config/auth');
 router.get('/', ensureAuthenticated, (req, res) => {
     res.render('chat', {
     layout: 'index',
-    user: req.user.name.toUpperCase()
+    user: req.user.name
     })
-}   
+}
 );
 
 // Dashboard

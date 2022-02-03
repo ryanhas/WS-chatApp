@@ -88,11 +88,15 @@ router.post("/register", (req, res) => {
                     try {
                       await transporter.sendMail({
                         to: email,
+                        from: "no-reply@chatapp.com",
                         subject: "Confirm Email",
-                        html: `<h2>Thanks for joining us!</h2>
+                        html: `<html>
+                               <meta http-equiv="Content-Type"  content="text/html charset=UTF-8" />
+                               <h2>Thanks for joining us!</h2>
                                <p>Please click this email to confirm your email: <a href="${url}">${url}</a></p>
                                <p>Thank you</>
-                               <p>The IT team</p>`,
+                               <p>The IT team</p>
+                               </html>`,
                       });
                       req.flash(
                         "success_msg",

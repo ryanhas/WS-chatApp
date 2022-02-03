@@ -9,11 +9,11 @@ function showNotification(author, message) {
   }
 
   notification.onclick = (e) => {
-    window.location.href = "https://google.com";
+    window.location.href = `${APP_URL}`;
   };
 
   // Close notification after x seconds
   setTimeout(function () {
     notification.close();
-  }, 7000);
+  }, 8000);
 }

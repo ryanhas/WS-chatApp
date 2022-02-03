@@ -32251,6 +32251,10 @@ h1 {
   font-family: 'Rubik', sans-serif;
 }
 
+#username {
+  text-transform: capitalize;
+}
+
 @media (min-width: 640px) {
   .sm\:container {
     width: 100%;
