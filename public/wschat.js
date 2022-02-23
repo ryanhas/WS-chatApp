@@ -24,7 +24,7 @@ $(function () {
       return;
     }
     // open connection
-    var connection = new WebSocket("wss://rhas.alwaysdata.net");
+    var connection = new WebSocket("wss://node-websocket-application.herokuapp.com");
     connection.onopen = function () {
       // first we want users to enter their names
       input.removeAttr("disabled");

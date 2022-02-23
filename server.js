@@ -1,5 +1,4 @@
 const dotenv = require("dotenv");
-const fs = require("fs");
 const path = require("path");
 const express = require("express");
 const passport = require('passport');
@@ -8,7 +7,6 @@ const session = require('express-session');
 const flash = require('connect-flash');
 
 const connectDB = require("./config/db");
-const { ensureAuthenticated } = require('./config/auth')
 
 // Load config
 dotenv.config({ path: "./config/config.env" });
@@ -24,7 +22,7 @@ app.use(express.static(path.join(__dirname, "public")));
 require('./config/passport')(passport);
 
 // Body parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Express session
